@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Cell from "./Cell";
 import './Board.css';
 
@@ -31,24 +31,43 @@ import './Board.css';
 
 class Board extends Component {
 
+  static defaultProps = {
+    nrows: 5,
+    ncols: 5,
+    chanceLightStartsOn: 0.25,
+  }
+
   constructor(props) {
     super(props);
 
     // TODO: set initial state
+    this.createBoard = this.createBoard.bind(this)
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
 
   createBoard() {
-    let board = [];
+    let board = []
+
+
     // TODO: create array-of-arrays of true/false values
+    for (var i = 0; i < this.props.nrows; i++) {
+      let row = []
+      for (var j = 0; j < this.props.ncols; j++) {
+        if (Math.random() < this.props.chanceLightStartsOn) { row.push(1) }
+        else { row.push(0) }
+      }
+      board.push(row)
+    }
+    console.log(board)
+    board.map((e, index) => console.log(e, index))
     return board
   }
 
   /** handle changing a cell: update board & determine if winner */
 
   flipCellsAround(coord) {
-    let {ncols, nrows} = this.props;
+    let { ncols, nrows } = this.props;
     let board = this.state.board;
     let [y, x] = coord.split("-").map(Number);
 
@@ -66,23 +85,35 @@ class Board extends Component {
     // win when every cell is turned off
     // TODO: determine is the game has been won
 
-    this.setState({board, hasWon});
+    // =========================================================================
+    // Giebner commented this out to remove initial failure to compile
+    // Now we compile
+    // this.setState({board, hasWon});
   }
 
-
+  
   /** Render game board or winning message. */
-
   render() {
-
+    var board = this.createBoard()
+    return (
+      <table className="Board">
+        <tbody>
+          {/* <tr>{board.flatMap((e,index) => <Cell key={`0-${index}`} isLit={e} />)}</tr> */}
+          <tr>{board[0].map((e,index) => <Cell key={`0-${index}`} isLit={e} />)}</tr>
+          <tr>{board[1].map((e,index) => <Cell key={`1-${index}`} isLit={e} />)}</tr>
+          <tr>{board[2].map((e,index) => <Cell key={`2-${index}`} isLit={e} />)}</tr>
+          <tr>{board[3].map((e,index) => <Cell key={`3-${index}`} isLit={e} />)}</tr>
+          <tr>{board[4].map((e,index) => <Cell key={`4-${index}`} isLit={e} />)}</tr>
+        </tbody>
+      </table>
+    )
     // if the game is won, just show a winning msg & render nothing else
 
     // TODO
 
     // make table board
 
-    // TODO
   }
 }
-
 
 export default Board;
