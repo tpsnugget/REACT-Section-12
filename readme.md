@@ -7,3 +7,6 @@
 
 # Version 2
    - Refactored version 1 to Colt's way and then flipped the cells my way.
+
+# Version 3
+   His way of flipping the cells was way smart then mine. Refactored.
