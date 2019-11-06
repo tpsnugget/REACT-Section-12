@@ -57,7 +57,7 @@ class Board extends Component {
     for (var i = 0; i < this.props.nrows; i++) {
       let row = []
       for (var j = 0; j < this.props.ncols; j++) {
-        row.push(Math.random() < this.props.chanceLightStartsOn ? 1 : 0)
+        row.push(Math.random() < this.props.chanceLightStartsOn ? true : false)
       }
       board.push(row)
     }
@@ -106,22 +106,23 @@ class Board extends Component {
 
     // win when every cell is turned off
     // TODO: determine is the game has been won
-    let hasWon = board.every(row => row.every(cell => !cell))
+    // let hasWon = board.every(row => row.every(cell => !cell))
 
+    let hasWon = false
+    let count = 0
+    for (var i = 0; i < this.props.nrows; i++) {
+      for (var j = 0; j < this.props.ncols; j++) {
+        count += (board[i][j] === true ? 1 : 0)
+
+      }
+    }
+    console.log(count)
+    hasWon = (count > 0 ? false : true)
+    count > 0 ? console.log("No win yet") : console.log("You Win!!")
     
     this.setState({ board, hasWon });
 
 
-    // let count = 0
-    // for (var i = 0; i < this.props.nrows; i++) {
-    //   for (var j = 0; j < this.props.ncols; j++) {
-    //     count += (board[i][j] === 1 ? 1 : 0)
-
-    //   }
-    // }
-    // console.log(count)
-    // hasWon = (count > 0 ? false : true)
-    // count > 0 ? console.log("No win yet") : console.log("You Win!!")
 
 
   }
