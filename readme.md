@@ -14,3 +14,7 @@
 # Version 4
    - I never got my winner part working correctly. Colt's single line of code for that
    was certainly shorter, but I never would have thought of that method on my own.
+
+# Version 5
+   OK, I finally figured it out. Changing the state resulted in true / false and 
+   not 1 / 0. So I changed everything to true / false and it worked fine.
