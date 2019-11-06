@@ -9,4 +9,8 @@
    - Refactored version 1 to Colt's way and then flipped the cells my way.
 
 # Version 3
-   His way of flipping the cells was way smart then mine. Refactored.
+   His way of flipping the cells was way smarter then mine. Refactored.
+
+# Version 4
+   - I never got my winner part working correctly. Colt's single line of code for that
+   was certainly shorter, but I never would have thought of that method on my own.
