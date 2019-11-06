@@ -72,11 +72,11 @@ class Board extends Component {
     let board = this.state.board;
     let [y, x] = coord.split("-").map(Number);
 
-    flipCell(y,x)
-    flipCell(y - 1,x)
-    flipCell(y + 1,x)
-    flipCell(y,x - 1)
-    flipCell(y,x + 1)
+    flipCell(y, x)
+    flipCell(y - 1, x)
+    flipCell(y + 1, x)
+    flipCell(y, x - 1)
+    flipCell(y, x + 1)
 
     function flipCell(y, x) {
       // if this coord is actually on board, flip it
@@ -84,6 +84,7 @@ class Board extends Component {
       if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
         board[y][x] = !board[y][x];
       }
+      // See multiple function calls above
       // if (x >= 0 && x < ncols && y - 1 >= 0 && y < nrows) {
       //   board[y - 1][x] = !board[y - 1][x];
       // }
@@ -99,33 +100,48 @@ class Board extends Component {
     }
 
     // TODO: flip this cell and the cells around it
-    this.setState({
-      board: board
-    })
+    // this.setState({
+    //   board: board
+    // })
 
     // win when every cell is turned off
     // TODO: determine is the game has been won
+    let hasWon = board.every(row => row.every(cell => !cell))
 
-    // =========================================================================
-    // Giebner commented this out to remove initial failure to compile
-    // Now we compile
-    // this.setState({board, hasWon});
+    
+    this.setState({ board, hasWon });
+
+
+    // let count = 0
+    // for (var i = 0; i < this.props.nrows; i++) {
+    //   for (var j = 0; j < this.props.ncols; j++) {
+    //     count += (board[i][j] === 1 ? 1 : 0)
+
+    //   }
+    // }
+    // console.log(count)
+    // hasWon = (count > 0 ? false : true)
+    // count > 0 ? console.log("No win yet") : console.log("You Win!!")
+
+
   }
 
-  
+
   /** Render game board or winning message. */
   render() {
 
+    if(this.state.hasWon){return <h1>Winner!!</h1>}
+
     let tblBoard = []
-    for(var i = 0; i < this.props.nrows; i++){
+    for (var i = 0; i < this.props.nrows; i++) {
       let row = []
-      for(var j = 0; j < this.props.ncols; j++){
+      for (var j = 0; j < this.props.ncols; j++) {
         let coord = `${i}-${j}`
-        row.push(<Cell key={coord} coord={coord} isLit={this.state.board[i][j]} flipCellsAroundMe={this.flipCellsAround}/>)
+        row.push(<Cell key={coord} coord={coord} isLit={this.state.board[i][j]} flipCellsAroundMe={this.flipCellsAround} />)
       }
       tblBoard.push(<tr key={i}>{row}</tr>)
     }
-    
+
     return (
       <table className="Board">
         <tbody>
